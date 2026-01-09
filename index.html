@@ -4,335 +4,196 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Birthday Surprise ❤️</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
 <style>
 body{
   margin:0;
-  font-family:system-ui,sans-serif;
+  font-family:system-ui,Arial;
   background:#000;
   color:#fff;
   text-align:center;
-  overflow-x:hidden;
 }
+
 .section{
-  display:none;
   min-height:100vh;
-  padding:20px;
-  box-sizing:border-box;
+  display:none;
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  padding:20px;
 }
-.active{
-  display:flex;
-}
+
+.active{display:flex;}
+
 button{
-  padding:14px 34px;
+  padding:15px 38px;
   font-size:18px;
   border:none;
   border-radius:40px;
   background:linear-gradient(45deg,#ff2f92,#ff7ac8);
   color:#fff;
-  box-shadow:0 0 25px rgba(255,47,146,.9);
+  box-shadow:0 0 20px #ff2f92;
   cursor:pointer;
-  margin-top:15px;
-}
-.photo{
-  width:85%;
-  max-width:280px;
-  border-radius:22px;
-  box-shadow:0 0 25px rgba(255,122,200,.9);
   margin-top:20px;
 }
+
+.photo{
+  width:85%;
+  max-width:300px;
+  border-radius:20px;
+  box-shadow:0 0 20px #ff69b4;
+}
+
 .caption{
   margin-top:18px;
-  font-size:18px;
-  line-height:1.8;
+  font-size:20px;
+  line-height:1.9;
+  max-width:320px;
 }
-#cakeWrapper{
+
+/* Cake */
+.cake{
   position:relative;
-  margin-top:30px;
+  width:250px;
+  height:200px;
+  margin-top:20px;
 }
-#cake{
-  width:200px;
-  height:150px;
-  background:#ff7b00;
-  border-radius:0 0 20px 20px;
-  position:relative;
-  margin:0 auto;
-}
-#cakeSlice{
-  width:0;
-  height:150px;
-  background:#ffd700;
-  position:absolute;
-  top:0;
-  left:0;
-  border-radius:0 0 20px 20px;
-}
-#candle{
-  width:15px;
-  height:80px;
-  background:orange;
-  border-radius:10px;
-  position:absolute;
-  top:-80px;
-  left:50%;
-  transform:translateX(-50%);
-}
-#flame{
-  width:12px;
-  height:20px;
-  background: radial-gradient(circle, yellow 0%, orange 70%);
-  border-radius:50%;
-  position:absolute;
-  top:-25px;
-  left:50%;
-  transform:translateX(-50%);
-  opacity:0;
-  filter:blur(1px);
-}
-#smoke{
-  width:8px;
-  height:8px;
-  position:absolute;
-  top:-35px;
-  left:50%;
-  transform:translateX(-50%);
-  opacity:0;
-  border-radius:50%;
-  background: rgba(200,200,200,0.4);
-}
-.confetti-piece{
-  position:absolute;
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  top:0;
-  left:50%;
-  opacity:0;
-}
+.layer{position:absolute;width:250px;height:100px;border-radius:120px/50px;background:#5d4037;}
+.layer1{bottom:0;}
+.layer2{bottom:40px;background:#6d4c41;}
+.layer3{bottom:80px;background:#f8bbd0;}
+.candle{width:15px;height:60px;background:#fff;position:absolute;top:40px;left:50%;transform:translateX(-50%);}
+.flame{width:18px;height:28px;background:orange;position:absolute;top:-30px;left:-2px;border-radius:50%;animation:flicker .2s infinite alternate;}
+@keyframes flicker{from{transform:scale(1);}to{transform:scale(1.2);}}
+
+/* Footer */
 footer{
   position:fixed;
-  bottom:5px;
+  bottom:6px;
   width:100%;
-  text-align:center;
   font-size:14px;
   color:#ffb6c1;
 }
-#cakeText{
-  font-size:28px;
-  font-weight:bold;
-  margin-top:20px;
-  color:#ffeb3b;
-  text-shadow: 0 0 10px #fff, 0 0 20px #ff0;
-}
 </style>
 </head>
+
 <body>
 
-<!-- SECTION 1 : Cake Animation -->
+<!-- 1 START -->
 <div class="section active" id="s1">
   <h1>Surprise Juma ❤️</h1>
-  <button id="btnCake">❤️ PRESS ME ❤️</button>
-  
-  <div id="cakeWrapper">
-    <div id="cake">
-      <div id="candle">
-        <div id="flame"></div>
-        <div id="smoke"></div>
-      </div>
-    </div>
-    <div id="cakeSlice"></div>
-  </div>
-  <div id="cakeText">Happy Birthday Juma 🎂</div>
+  <button onclick="startCake()">❤️ PRESS ME ❤️</button>
 </div>
 
-<!-- SECTION 2 : Slideshow -->
+<!-- 2 CAKE -->
 <div class="section" id="s2">
+  <div class="cake">
+    <div class="layer layer1"></div>
+    <div class="layer layer2"></div>
+    <div class="layer layer3"></div>
+    <div class="candle"><div class="flame"></div></div>
+  </div>
+  <h2>🎂 Happy Birthday Juma 🎂</h2>
+</div>
+
+<!-- 3 SLIDESHOW -->
+<div class="section" id="s3">
   <img id="slideImg" class="photo">
   <div id="slideText" class="caption"></div>
 </div>
 
-<!-- SECTION 3 : Question -->
-<div class="section" id="s3">
-  <h3>Tum roj puchti ho na,<br>tum kaun ho?</h3>
-  <button id="btnShowShayari">Press this button</button>
+<!-- 4 QUESTION -->
+<div class="section" id="s4">
+  <h2>Tum roj puchti ho na,<br>tum kaun ho?</h2>
+  <button onclick="showShayari()">Press this button</button>
 </div>
 
-<!-- SECTION 4 : Emotional Shayari -->
-<div class="section" id="s4">
-  <h2 style="line-height:1.9">
+<!-- 5 SHAYARI -->
+<div class="section" id="s5">
+  <h2 style="line-height:1.9;max-width:340px;">
     हृदय से प्रेमिका,<br>
-    व्यवहार से माँ<br>
+    व्यवहार से माँ,<br>
     और श्रृंगार से अर्धांगिनी हो तुम<br><br>
     मेरे जीवन में<br>
     मेरी माँ के बाद<br>
     एकमात्र महत्वपूर्ण स्त्री हो तुम !
   </h2>
-  <button id="btnFun">Next 😄</button>
+  <button onclick="showFun()">Next 😄</button>
 </div>
 
-<!-- SECTION 5 : Last Fun Scene -->
-<div class="section" id="s5">
-  <img src="photo_fun.jpg" class="photo">
-  <h2 id="finalText" style="margin-top:18px;font-size:30px;"></h2>
-  <button id="btnGift">Birthday Gift 🎁</button>
+<!-- 6 FUN -->
+<div class="section" id="s6">
+  <img src="fun.jpg" class="photo">
+  <h2 id="funText"></h2>
+  <button onclick="playGift()">Birthday Gift 🎁</button>
 </div>
 
-<footer>Made by Aryan</footer>
+<footer>Made by Aryan ❤️</footer>
 
-<!-- AUDIO FILES -->
-<audio id="bday" src="birthday.mp3"></audio>
-<audio id="love" src="love_song.mp3" loop></audio>
-<audio id="giftSong" src="150_rupiya.mp3"></audio>
+<!-- AUDIO -->
+<audio id="song1" src="birthday.mp3"></audio>
+<audio id="song2" src="love_song.mp3"></audio>
+<audio id="song3" src="150_rupiya.mp3"></audio>
 
 <script>
-const s1=document.getElementById("s1");
-const s2=document.getElementById("s2");
-const s3=document.getElementById("s3");
-const s4=document.getElementById("s4");
-const s5=document.getElementById("s5");
+const song1=document.getElementById("song1");
+const song2=document.getElementById("song2");
+const song3=document.getElementById("song3");
 
-const slideImg=document.getElementById("slideImg");
-const slideText=document.getElementById("slideText");
-const finalText=document.getElementById("finalText");
-
-const btnCake=document.getElementById("btnCake");
-const btnShowShayari=document.getElementById("btnShowShayari");
-const btnFun=document.getElementById("btnFun");
-const btnGift=document.getElementById("btnGift");
-
-const bdayAudio=document.getElementById("bday");
-const loveAudio=document.getElementById("love");
-const giftAudio=document.getElementById("giftSong");
-
-const flame=document.getElementById("flame");
-const smoke=document.getElementById("smoke");
-const cakeSlice=document.getElementById("cakeSlice");
-
-// Candle Animation
-function lightCandle(){
-  flame.style.opacity=1;
-  gsap.to(flame,{y:"-=10", repeat:-1, yoyo:true, duration:0.2, ease:"sine.inOut", scale:1.2});
-  gsap.to(flame,{boxShadow:"0 0 20px 8px rgba(255,255,100,0.8)", repeat:-1, yoyo:true, duration:0.3, ease:"sine.inOut"});
-  setInterval(()=>{
-    smoke.style.left = (50 + Math.random()*10-5) + "%";
-    smoke.style.top="-35px";
-    smoke.style.opacity=0.5;
-    gsap.to(smoke,{y:-50, opacity:0, scale:2, duration:2, ease:"power1.out"});
-  },300);
+function show(n){
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.getElementById("s"+n).classList.add("active");
 }
 
-// Cake Slice Animation
-function cutCake(){
-  let width=0;
-  const sliceInterval = setInterval(()=>{
-    width+=4;
-    cakeSlice.style.width=width+"px";
-    if(width>=200) clearInterval(sliceInterval); // Cake fully sliced
-  },30);
+/* START */
+function startCake(){
+  show(2);
+  song1.play();
+  song1.onended=()=>startSlides();
 }
 
-// Confetti
-function createConfetti(){
-  for(let i=0;i<100;i++){
-    const c=document.createElement('div');
-    c.classList.add('confetti-piece');
-    c.style.background=['#ff0','#ff69b4','#00ffff','#00ff00'][Math.floor(Math.random()*4)];
-    c.style.left=Math.random()*100+'vw';
-    c.style.top='-10px';
-    document.body.appendChild(c);
-    gsap.to(c,{y:window.innerHeight+50,rotation:Math.random()*360,duration:Math.random()*3+2,ease:'linear',onComplete:()=>c.remove()});
-  }
-}
-
-// Slideshow data
+/* SLIDES */
 const slides=[
-  {img:"photo1.jpg", text:"अगर मैं Chemistry हूँ,<br>तो तुम मेरा Oxygen हो 💫<br><br>अगर मैं Biology हूँ,<br>तो तुम मेरा Heart हो ❤️"},
-  {img:"photo2.jpg", text:"अगर मैं Physics हूँ,<br>तो तुम मेरी Gravity हो 🌍<br><br>अगर मैं History हूँ,<br>तो तुम मेरी Queen हो 👑"},
-  {img:"photo3.jpg", text:"अगर मैं Geography हूँ,<br>तो तुम मेरी Universe हो 🌌"},
-  {img:"photo4.jpg", text:"अगर मैं Maths हूँ,<br>तो तुम मेरा Solution हो ✨"}
+ {img:"photo1.jpg",text:"अगर मैं Chemistry हूँ,<br>तो तुम मेरा Oxygen हो ❤️"},
+ {img:"photo2.jpg",text:"अगर मैं Biology हूँ,<br>तो तुम मेरा Heart हो 💖"},
+ {img:"photo3.jpg",text:"अगर मैं Physics हूँ,<br>तो तुम मेरी Gravity हो 🌍"},
+ {img:"photo4.jpg",text:"अगर मैं History हूँ,<br>तो तुम मेरी Queen हो 👑"}
 ];
-
 let i=0;
 
-// BUTTON EVENTS
-btnCake.addEventListener("click",()=>{
-  loveAudio.pause(); loveAudio.currentTime=0;
-  giftAudio.pause(); giftAudio.currentTime=0;
-
-  lightCandle();
-  cutCake();
-  bdayAudio.play();
-
-  s1.classList.remove("active");
-  s2.classList.add("active");
-
-  // Wait until birthday song ends then start slideshow & song2
-  bdayAudio.onended=()=>{
-    startSlideshow();
-  };
-});
-
-// Slideshow
-function startSlideshow(){
-  i=0;
+function startSlides(){
+  show(3);
+  song2.play(); // 🔥 love song continues
   showSlide();
-  loveAudio.play();
-  let slideInterval = setInterval(()=>{
+  let inter=setInterval(()=>{
     i++;
     if(i>=slides.length){
-      clearInterval(slideInterval);
-      s2.classList.remove("active");
-      s3.classList.add("active");
-      return;
-    }
-    showSlide();
-  },4000);
+      clearInterval(inter);
+      show(4); // question page
+    }else showSlide();
+  },6000); // ⏱️ time increased
 }
 
 function showSlide(){
-  if(i>=slides.length) return;
   slideImg.src=slides[i].img;
   slideText.innerHTML=slides[i].text;
-  gsap.fromTo(slideImg,{opacity:0,scale:.9},{opacity:1,scale:1,duration:1});
-  gsap.fromTo(slideText,{opacity:0,y:20},{opacity:1,y:0,duration:1});
 }
 
-// Question -> Emotional Shayari
-btnShowShayari.addEventListener("click",()=>{
-  s3.classList.remove("active");
-  s4.classList.add("active");
-});
+function showShayari(){show(5);}
 
-// Emotional Shayari -> Last Fun Scene
-btnFun.addEventListener("click",()=>{
-  s4.classList.remove("active");
-  s5.classList.add("active");
-  loveAudio.pause(); loveAudio.currentTime=0; 
-});
+function showFun(){
+  song2.pause(); // ❌ love song stops HERE
+  show(6);
+}
 
-// Last Fun Scene
-btnGift.addEventListener("click",()=>{
-  finalText.innerHTML="एक सौ पचास रुपे देगा 💰 😜";
-  createConfetti();
-  loveAudio.pause(); loveAudio.currentTime=0;
-  bdayAudio.pause(); bdayAudio.currentTime=0;
-
-  let count=0;
-  giftAudio.currentTime=0;
-  giftAudio.play();
-  giftAudio.onended=()=>{
-    count++;
-    if(count<3){
-      giftAudio.currentTime=0;
-      giftAudio.play();
-    }
-  }
-});
+function playGift(){
+  document.getElementById("funText").innerHTML="एक सौ पचास रुपे देगा 😜💰";
+  let c=0;
+  song3.play();
+  song3.onended=()=>{if(++c<3) song3.play();}
+}
 </script>
+
 </body>
 </html>
-
 
